@@ -46,10 +46,10 @@ In your rendered table...
 
 - The data should be displayed in the order it appears in the sheet by default until a user clicks on a header
 
-## ###Evaluation Criteria
+###Evaluation Criteria
 
 Your score will be based primarily on passing the Puppeteer-powered submission test cases. Beyond that, we'd like to see that your code is clean and easy to maintain.
 
-## ###Resources
+###Resources
 
 You may consult any documentation you wish. It's expected that a fair amount of research will be involved to familiarize yourself with setting up a Bootstrap table and using the Google Sheets endpoint. As always you should reach out to us if you have questions.
