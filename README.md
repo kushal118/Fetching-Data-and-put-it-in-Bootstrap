@@ -1,10 +1,10 @@
-##Description
+## Description
 
 _Pull data from a Google Sheet and display it on a web page in a table._
 
 This front-end challenge tests whether you can use `fetch` to asynchronously pull data from a Google Sheets document which is served in a JSON data format.
 
-###**Task**
+### **Task**
 
 In this challenge, your task is to fetch data from a Google Sheet and place it into a [Bootstrap table](https://getbootstrap.com/docs/4.0/content/tables/).
 
@@ -20,7 +20,7 @@ The [endpoint google exposes is: this](https://docs.google.com/spreadsheets/d/1C
 
 This endpoint returns the first sheet, Employees. Accessing the other two sheets can be done by changing the **gid** number to **1574569648** or **1605451198** in the above URL.
 
-###Deliverables
+### Deliverables
 
 Your main goal is to write `script.js` to fetch the Google Sheets data and organize it into a standard Bootstrap table with the id `#employees`, already in `index.html` in your workspace.
 
@@ -46,10 +46,10 @@ In your rendered table...
 
 - The data should be displayed in the order it appears in the sheet by default until a user clicks on a header
 
-###Evaluation Criteria
+### Evaluation Criteria
 
 Your score will be based primarily on passing the Puppeteer-powered submission test cases. Beyond that, we'd like to see that your code is clean and easy to maintain.
 
-###Resources
+### Resources
 
 You may consult any documentation you wish. It's expected that a fair amount of research will be involved to familiarize yourself with setting up a Bootstrap table and using the Google Sheets endpoint. As always you should reach out to us if you have questions.
