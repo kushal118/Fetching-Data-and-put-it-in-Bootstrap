@@ -1,10 +1,10 @@
-## ##Description
+##Description
 
 _Pull data from a Google Sheet and display it on a web page in a table._
 
 This front-end challenge tests whether you can use `fetch` to asynchronously pull data from a Google Sheets document which is served in a JSON data format.
 
-## ###**Task**
+###**Task**
 
 In this challenge, your task is to fetch data from a Google Sheet and place it into a [Bootstrap table](https://getbootstrap.com/docs/4.0/content/tables/).
 
