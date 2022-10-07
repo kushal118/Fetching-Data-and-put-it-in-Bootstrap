@@ -24,8 +24,8 @@ const awaitFunc = async function () {
   const formattedData = [];
   datas[0].forEach((item, index) => {
     formattedData.push({
-      first: datas[0][index].c[0].v,
       last: datas[0][index].c[1].v,
+      first: datas[0][index].c[0].v,
       date: new Date(datas[1][index].c[0].f).toString().slice(4, 15),
       salary: new Intl.NumberFormat("en-US", {
         style: "currency",
