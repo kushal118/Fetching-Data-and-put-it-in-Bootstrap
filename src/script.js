@@ -50,12 +50,12 @@ awaitFunc().then((formattedData) => {
         sortable: true,
       },
       {
-        title: "Date",
+        title: "Hiring Date",
         field: "date",
         sortable: true,
       },
       {
-        title: "Money",
+        title: "Salary",
         field: "salary",
         sortable: true,
         sorter(a, b) {
