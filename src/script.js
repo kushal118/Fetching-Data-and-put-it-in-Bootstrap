@@ -33,7 +33,17 @@ const awaitFunc = async function () {
       }).format(datas[2][index].c[0].v),
     });
   });
-  return formattedData;
+  return formattedData.sort(function (a, b) {
+    let x = a.last.toLowerCase();
+    let y = b.last.toLowerCase();
+    if (x > y) {
+      return 1;
+    }
+    if (x < y) {
+      return -1;
+    }
+    return 0;
+  });
 };
 
 awaitFunc().then((formattedData) => {
