@@ -3,83 +3,70 @@ const dataURLBase = "https://docs.google.com/spreadsheets/d/";
 const dataURLEnd = "/gviz/tq?tqx=out:json&tq&gid=";
 const id = "1C1-em4w0yHmd2N7__9cCSFzxBEf_8r74hQJBsR6qWnE";
 const gids = ["0", "1574569648", "1605451198"];
+let employees = []
 // END OF DATA SETUP
+async function fetchGoogleData(url){
+  const response = await fetch(url);
+  const text = await response.text();
+  const employeesResponse = JSON.parse(text.slice(47,-2));
+  return employeesResponse.table.rows
+}
+// create table 
+function createEmployeeTable(employeesData){
+  let table = document.getElementById('employees');
+  table.border="1";
+  for(let employee of employeesData){
+    let tr = document.createElement('tr');
+    table.appendChild(tr)
+    for(let property in employee ){
+      let td =document.createElement('td');
+      td.innerHTML=(employee[property]);
+      tr.appendChild(td);
 
-const employesUrl = fetch(`${dataURLBase}${id}${dataURLEnd}${gids[0]}`);
-const hiringUrl = fetch(`${dataURLBase}${id}${dataURLEnd}${gids[1]}`);
-const salaryUrl = fetch(`${dataURLBase}${id}${dataURLEnd}${gids[2]}`);
-// TODO your code here
-
-const awaitFunc = async function () {
-  const responses = await Promise.all([employesUrl, hiringUrl, salaryUrl]);
-  const datas = await Promise.all(
-    responses.map(async (response) => {
-      const text = await response.text();
-      return await JSON.parse(text.substring(47).slice(0, -2)).table.rows;
-    })
-  );
-
-  datas[0].shift();
-  console.log(datas[0]);
-  const formattedData = [];
-  datas[0].forEach((item, index) => {
-    formattedData.push({
-      last: datas[0][index].c[1].v,
-      first: datas[0][index].c[0].v,
-      date: new Date(datas[1][index].c[0].f).toString().slice(4, 15),
-      salary: new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(datas[2][index].c[0].v),
-    });
-  });
-  return formattedData.sort(function (a, b) {
-    let x = a.last.toLowerCase();
-    let y = b.last.toLowerCase();
-    if (x > y) {
-      return 1;
     }
-    if (x < y) {
-      return -1;
-    }
-    return 0;
-  });
-};
+  }
+}
 
-awaitFunc().then((formattedData) => {
-  $("#employees").bootstrapTable({
-    columns: [
-      {
-        title: "Last",
-        field: "last",
-        sortable: true,
-      },
-      {
-        title: "First",
-        field: "first",
-        sortable: true,
-      },
-      {
-        title: "Hiring Date",
-        field: "date",
-        sortable: true,
-      },
-      {
-        title: "Salary",
-        field: "salary",
-        sortable: true,
-        sorter(a, b) {
-          a.replace(/[^\d\.]/g, "");
-          return (
-            Number(a.replace(/[^\d\.]/g, "")) -
-            Number(b.replace(/[^\d\.]/g, ""))
-          );
-        },
-      },
-    ],
-    sortable: true,
-    data: formattedData,
-  });
-});
+async function main (){
+//calling sheet#1- name endpoint
+let url = dataURLBase + id + dataURLEnd + gids[0]
+let rows= await fetchGoogleData(url);
+console.log(rows);
+let i = 0;
+for (let row of rows){
+if(row.c[0].v=="first"){
+  continue;
+}
+employees[i]={
+  'firstName':row.c[0].v,
+  'lastName':row.c[1].v
+}
+++i;
+console.log(employees);
+}
+// calling 2nd sheet ------hire date
+url = dataURLBase + id + dataURLEnd + gids[1]
+rows = await fetchGoogleData(url);
+i = 0
+for (let row of rows){
+  employees[i]={...employees[i],
+  'hireDate':(new Date(row.c[0].f)).toDateString().slice(4,15)
+  }
+  ++i;
+}
+url = dataURLBase + id + dataURLEnd + gids[2]
+rows = await fetchGoogleData(url);
+i = 0
+for (let row of rows){
+  employees[i]={...employees[i],
+  'salary':Intl.NumberFormat('en-US', {style:'currency',currency:'USD',maximumFractionDigits:0}).format(row.c[0].f)
+  }
+  ++i;
+}
+createEmployeeTable(employees);
 
-/*sort(a, b) => return new Date(a) - new Date(b)*/
+}
+
+
+  
+ main()
